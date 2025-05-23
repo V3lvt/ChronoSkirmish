@@ -1,4 +1,3 @@
-// Player-specific controller: movement, gravity, age progression
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -12,6 +11,11 @@ public class PlayerController : Character
     public float gravity = -15f;
     public float terminalVelocity = 53f;
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -20,6 +24,7 @@ public class PlayerController : Character
     void Update()
     {
         HandleMovement();
+        base.Update();
     }
 
     private void HandleMovement()
@@ -31,16 +36,19 @@ public class PlayerController : Character
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 move = transform.right * x + transform.forward * z;
-
         controller.Move(move * moveSpeed * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
-        {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
 
         velocity.y += gravity * Time.deltaTime;
         velocity.y = Mathf.Max(velocity.y, -terminalVelocity);
         controller.Move(velocity * Time.deltaTime);
     }
+
+    public override void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount * dpsMultiplier);
+    }
 }
+

@@ -5,47 +5,64 @@ using TMPro;
 public class HUDManager : MonoBehaviour
 {
     [Header("UI Elements")]
-    [SerializeField] private Slider healthBar;
+    [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI ageText;
+    [SerializeField] private TextMeshProUGUI damageText;
 
     void Awake()
     {
-        if (healthBar == null)
-            healthBar = GetComponentInChildren<Slider>();
+        if (healthText == null)
+        {
+            var ht = transform.Find("HealthText");
+            if (ht != null) healthText = ht.GetComponent<TextMeshProUGUI>();
+        }
         if (ageText == null)
-            ageText = GetComponentInChildren<TextMeshProUGUI>();
+        {
+            var at = transform.Find("AgeText");
+            if (at != null) ageText = at.GetComponent<TextMeshProUGUI>();
+        }
+        if (damageText == null)
+        {
+            var dt = transform.Find("DamageText");
+            if (dt != null) damageText = dt.GetComponent<TextMeshProUGUI>();
+        }
 
-        if (healthBar == null)
-            Debug.LogError("HUDManager: healthBar is not assigned and no Slider found in children.");
+        if (healthText == null)
+            Debug.LogError("HUDManager: healthText is not assigned and no child named 'HealthText' found.");
         if (ageText == null)
-            Debug.LogError("HUDManager: ageText is not assigned and no TextMeshProUGUI found in children.");
+            Debug.LogError("HUDManager: ageText is not assigned and no child named 'AgeText' found.");
+        if (damageText == null)
+            Debug.LogError("HUDManager: damageText is not assigned and no child named 'DamageText' found.");
     }
 
     void Start()
     {
-        if (GameManager.Instance == null || GameManager.Instance.player == null)
+        var player = GameManager.Instance?.player;
+        if (player == null)
         {
-            Debug.LogError("HUDManager: GameManager or PlayerController reference is missing.");
+            Debug.LogError("HUDManager: PlayerController reference is missing from GameManager.");
             return;
         }
-
-        var player = GameManager.Instance.player;
-        healthBar.minValue = 0;
-        healthBar.maxValue = player.maxHealth;
-        healthBar.value = player.currentHealth;
-        ageText.text = player.age.ToString();
+        UpdateHealth(player.currentHealth, player.maxHealth);
+        UpdateAge(player.age);
+        UpdateDamage(player.dpsMultiplier);
     }
 
     public void UpdateHealth(float current, float max)
     {
-        if (healthBar == null) return;
-        healthBar.maxValue = max;
-        healthBar.value = current;
+        if (healthText == null) return;
+        healthText.text = "hp: " + string.Format("{0}/{1}", Mathf.RoundToInt(current), Mathf.RoundToInt(max));
     }
 
     public void UpdateAge(int age)
     {
         if (ageText == null) return;
         ageText.text = "age: " + age.ToString();
+    }
+
+    public void UpdateDamage(float dpsMultiplier)
+    {
+        if (damageText == null) return;
+        damageText.text = string.Format("damage multiplier: {0}x", dpsMultiplier);
     }
 }

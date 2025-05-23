@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         {
             hud.UpdateHealth(player.currentHealth, player.maxHealth);
             hud.UpdateAge(player.age);
+            hud.UpdateDamage(player.dpsMultiplier);
         }
     }
 }
