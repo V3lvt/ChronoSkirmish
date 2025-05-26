@@ -14,11 +14,16 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        var target = collision.collider.GetComponent<Character>();
-        if (target != null)
+        if (collision.collider.TryGetComponent<TargetStats>(out var stats))
         {
-            target.TakeDamage(damage);
+            stats.ApplyHit(damage);
         }
+
+        if (collision.collider.TryGetComponent<Character>(out var character))
+        {
+            character.TakeDamage(damage);
+        }
+
         Destroy(gameObject);
     }
 }

@@ -559,12 +559,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.74427116, y: 0.92330575, z: 3.7939205}
-  m_Center: {x: 0.0025455654, y: -0.11893739, z: -0.16325046}
+  m_Size: {x: 0.17980452, y: 0.71633464, z: 3.4384842}
+  m_Center: {x: 0.0025456832, y: -0.14716074, z: -0.15837312}
 --- !u!114 &5128133634460846474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,10 +594,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5e2974a11d75b645a1d22c2e169d4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicsRoot: {fileID: 0}
   handAnchorName: gun_socket
   dropForwardForce: 5
   dropUpwardForce: 2
-  pickupDelay: 1
+  pickupDelay: 0
+  pickupRange: 5
 --- !u!54 &4776502351729777775
 Rigidbody:
   m_ObjectHideFlags: 0

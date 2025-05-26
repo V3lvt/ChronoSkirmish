@@ -4,15 +4,20 @@ using System.Collections;
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public class WeaponPickup : MonoBehaviour
 {
-    [Header("Settings")]
+    [Header("References")]
+    public Transform physicsRoot;
+
+    [Header("Pickup Settings")]
     public string handAnchorName = "gun_socket";
     public float dropForwardForce = 5f;
     public float dropUpwardForce = 2f;
     public float pickupDelay = 1f;
+    public float pickupRange = 2f;
 
     private Collider col;
     private Rigidbody rb;
     private Transform originalParent;
+    private Collider playerCol;
     private bool isHeld;
     private bool canPickUp = true;
 
@@ -21,23 +26,36 @@ public class WeaponPickup : MonoBehaviour
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
 
-        col.isTrigger = true;
-        rb.isKinematic = true;
-        rb.useGravity = false;
+        col.isTrigger = false;
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
         originalParent = transform.parent;
     }
 
-    void OnTriggerEnter(Collider other)
+    void Update()
     {
-        if (!canPickUp || isHeld) return;
-        var player = other.GetComponentInParent<PlayerController>();
-        if (player != null && player.currentWeapon == null)
-            PickUp(player);
+        if (isHeld || !canPickUp)
+        {
+            return;
+        }
+
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        bool hitThis = Physics.Raycast(ray, out RaycastHit hit, pickupRange) && hit.collider == col;
+
+        if (hitThis && Input.GetKeyDown(KeyCode.E))
+            PickUp();
     }
 
-    void PickUp(PlayerController player)
+    void PickUp()
     {
+        if (!canPickUp || isHeld) return;
+        var player = FindObjectOfType<PlayerController>();
+        if (player == null || player.currentWeapon != null) return;
+
+        playerCol = player.GetComponent<Collider>();
+
         var hand = player.transform.Find(handAnchorName);
         if (hand == null) return;
         transform.SetParent(hand, false);
@@ -53,6 +71,7 @@ public class WeaponPickup : MonoBehaviour
 
         isHeld = true;
         player.currentWeapon = this;
+
     }
 
     public void Drop()
@@ -69,8 +88,8 @@ public class WeaponPickup : MonoBehaviour
                            + player.transform.forward * 0.5f
                            + Vector3.up * 0.5f;
 
-        col.enabled = true;
         col.isTrigger = false;
+        col.enabled = true;
         rb.isKinematic = false;
         rb.useGravity = true;
         rb.linearVelocity = Vector3.zero;
@@ -80,17 +99,22 @@ public class WeaponPickup : MonoBehaviour
             ForceMode.VelocityChange
         );
 
+        if (playerCol != null)
+            Physics.IgnoreCollision(col, playerCol, true);
+
         GetComponent<Gun>().enabled = false;
         Camera.main.GetComponent<CameraScript>().heldWeapon = null;
 
         canPickUp = false;
-        StartCoroutine(Reenable());
+        StartCoroutine(ReenableCollider());
     }
 
-    private IEnumerator Reenable()
+    private IEnumerator ReenableCollider()
     {
         yield return new WaitForSeconds(pickupDelay);
-        col.isTrigger = true;
+        col.isTrigger = false;
         canPickUp = true;
+        if (playerCol != null)
+            Physics.IgnoreCollision(col, playerCol, false);
     }
 }

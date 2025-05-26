@@ -15,13 +15,16 @@ public class Gun : MonoBehaviour
     {
         enabled = false;
     }
+
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
     }
+
     void Update()
     {
-        cooldown -= Time.deltaTime;
+        if (cooldown > 0f) cooldown -= Time.deltaTime;
+
         if (Input.GetButton("Fire1") && cooldown <= 0f)
         {
             Shoot();
@@ -34,9 +37,12 @@ public class Gun : MonoBehaviour
         var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         Vector3 dir = ray.direction;
 
-        var bullet = Instantiate(bulletPrefab, muzzlePoint.position, Quaternion.LookRotation(dir));
+        Vector3 spawnPos = muzzlePoint.position + dir * 0.1f;
+
+        var bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.LookRotation(dir));
         var rb = bullet.GetComponent<Rigidbody>();
         rb.linearVelocity = dir * bulletSpeed;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
         float dmg = baseDamage * (player != null ? player.dpsMultiplier : 1f);
         bullet.GetComponent<Bullet>().SetDamage(dmg);
