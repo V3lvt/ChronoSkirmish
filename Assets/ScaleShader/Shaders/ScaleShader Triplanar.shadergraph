@@ -3208,7 +3208,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "m_DefaultType": 0
@@ -3477,8 +3477,8 @@
     "m_ObjectId": "2a19b20df9fb4adc85e72c671d9379ed",
     "m_Title": "Base Logic for X and Y",
     "m_Position": {
-        "x": -949.5000610351563,
-        "y": 44.00001525878906
+        "x": -949.6004028320313,
+        "y": 42.400020599365237
     }
 }
 
@@ -4260,7 +4260,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "m_DefaultType": 0
@@ -5557,8 +5557,8 @@
         "y": 1.0
     },
     "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 1.0,
+        "y": 1.0
     },
     "m_Labels": []
 }
@@ -5617,8 +5617,8 @@
         "y": 1.0
     },
     "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 1.0,
+        "y": 1.0
     },
     "m_Labels": []
 }
@@ -5722,8 +5722,8 @@
     "m_ObjectId": "6a9749324e5e462399b7f9477247dbbd",
     "m_Title": "Triplanar",
     "m_Position": {
-        "x": 2704.000244140625,
-        "y": 1960.5001220703125
+        "x": 2703.999755859375,
+        "y": 1959.199951171875
     }
 }
 
@@ -6486,8 +6486,8 @@
     "m_ObjectId": "816e5753823842879486a49ad6d83b31",
     "m_Title": "Outline (w/ Camera Relative Scaling)",
     "m_Position": {
-        "x": 2977.200439453125,
-        "y": 3093.600341796875
+        "x": 2976.800048828125,
+        "y": 3091.200439453125
     }
 }
 
@@ -6594,6 +6594,9 @@
     "m_AlphaClip": false,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
+    "m_DisableTint": false,
+    "m_AdditionalMotionVectorMode": 0,
+    "m_AlembicMotionVectors": false,
     "m_SupportsLODCrossFade": false,
     "m_CustomEditorGUI": "",
     "m_SupportVFX": false
@@ -6855,7 +6858,7 @@
     "m_DefaultValue": {
         "x": 0.0,
         "y": 0.0,
-        "z": 0.0
+        "z": 1.0
     },
     "m_Labels": []
 }
@@ -6996,8 +6999,8 @@
         "y": 1.0
     },
     "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 1.0,
+        "y": 1.0
     },
     "m_Labels": []
 }
@@ -7064,7 +7067,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "m_DefaultType": 0
@@ -7404,7 +7407,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "m_DefaultType": 0
@@ -9511,7 +9514,7 @@
     "m_StageCapability": 3,
     "m_BareResource": false,
     "m_Texture": {
-        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
+        "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "m_DefaultType": 0
@@ -10690,8 +10693,8 @@
     "m_ObjectId": "fb125bc5c56e4898a1064fe5aff31c17",
     "m_Title": "Z Logic",
     "m_Position": {
-        "x": -1367.5001220703125,
-        "y": 736.0000610351563
+        "x": -1367.9998779296875,
+        "y": 734.400146484375
     }
 }
 
