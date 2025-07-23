@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMaxHealth: 200
-  baseMoveSpeed: 5
+  baseMoveSpeed: 3.5
   baseJumpHeight: 1.2
   baseRotationSpeed: 10
   baseDpsMultiplier: 1
@@ -351,25 +351,20 @@ MonoBehaviour:
   defaultAgeRate: 0
   currentAgeRate: 0
   ageStages:
-  - minAge: 0
-    maxAge: 21
-    healthMultiplier: 1
-    speedMultiplier: 1
-    dpsMultiplier: 1
   - minAge: 20
     maxAge: 29
     healthMultiplier: 0.9
-    speedMultiplier: 0.9
+    speedMultiplier: 2
     dpsMultiplier: 1.5
   - minAge: 30
     maxAge: 39
     healthMultiplier: 0.8
-    speedMultiplier: 0.8
+    speedMultiplier: 1.5
     dpsMultiplier: 2
   - minAge: 40
     maxAge: 49
     healthMultiplier: 0.7
-    speedMultiplier: 0.7
+    speedMultiplier: 1
     dpsMultiplier: 2.5
   - minAge: 50
     maxAge: 59
@@ -384,12 +379,12 @@ MonoBehaviour:
   - minAge: 70
     maxAge: 79
     healthMultiplier: 0.4
-    speedMultiplier: 0.4
+    speedMultiplier: 0.3
     dpsMultiplier: 4
   - minAge: 80
     maxAge: 89
     healthMultiplier: 0.3
-    speedMultiplier: 0.3
+    speedMultiplier: 0.2
     dpsMultiplier: 5
   currentWeapon: {fileID: 0}
   gravity: -15

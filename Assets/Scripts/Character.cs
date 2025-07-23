@@ -55,7 +55,7 @@ public abstract class Character : MonoBehaviour
         {
             int years = (int)(Mathf.Floor(Mathf.Abs(ageAccumulator)) * Mathf.Sign(ageAccumulator));
             int oldAge = age;
-            age = Mathf.Clamp(age + years, 0, 90);
+            age = Mathf.Clamp(age + years, 20, 90);
             ageAccumulator -= years;
             if (age != oldAge)
             {

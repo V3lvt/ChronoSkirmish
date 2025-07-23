@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
 
     public TMPro.TMP_Text healthText;
 
+    GameObject particleFX;
+
 
     private void Awake()
     {
@@ -29,12 +31,19 @@ public class Enemy : MonoBehaviour
     {
         if (health <= 0)
         {
-            
-            Debug.Log("Enemy Killed)");
-            Destroy(this.gameObject);
+
+            Death();
         }
 
         healthText.text = health.ToString();
+    }
+
+    public void Death()
+    {
+        Debug.Log("Enemy Killed)");
+        //Instantiate(particleFX, this.transform.position, this.transform.rotation);
+        Destroy(this.gameObject);
+        
     }
 
     public void OnTriggerEnter(Collider other)
@@ -43,8 +52,10 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Enemy Hit");
             health = health - 20f;
+
         }
            
 
     }
+
 }
