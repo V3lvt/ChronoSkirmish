@@ -57,7 +57,7 @@ public class HUDManager : MonoBehaviour
     public void UpdateAge(int age)
     {
         if (ageText == null) return;
-        ageText.text = "age: " + age.ToString();
+        ageText.text = age.ToString();
     }
 
     public void UpdateDamage(float dpsMultiplier)

@@ -46,6 +46,7 @@ public abstract class Character : MonoBehaviour
     protected virtual void Update()
     {
         HandleAging();
+        HandlePassiveAging();
     }
 
     protected void HandleAging()
@@ -75,6 +76,37 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    protected void HandlePassiveAging()
+    {
+        passiveAgeTimer += Time.deltaTime;
+        if (passiveAgeTimer >= 2f)
+        {
+            passiveAgeTimer -= 2f;
+            AddOneYear();
+        }
+    }
+
+    protected void AddOneYear()
+    {
+        if (age >= 90)
+            return;
+
+        int oldAge = age;
+        age = Mathf.Clamp(age + 1, 20, 90);
+
+        float oldMax = maxHealth;
+        float normalizedHealth = currentHealth / oldMax;
+
+        ApplyAgeStats();
+
+        currentHealth = normalizedHealth * maxHealth;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        if (age != oldAge && age >= 90)
+        {
+            Die();
+        }
+    }
     protected void ApplyAgeStats()
     {
         maxHealth = baseMaxHealth;
@@ -111,4 +143,5 @@ public abstract class Character : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    private float passiveAgeTimer = 0f;
 }
