@@ -24,6 +24,11 @@ public class Bullet : MonoBehaviour
             character.TakeDamage(damage);
         }
 
+        if (collision.collider.TryGetComponent<Switch>(out var sw))
+        {
+            sw.Activate();
+        }
+
         Destroy(gameObject);
     }
 }
