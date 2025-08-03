@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour
     public PlayerController player;
     public HUDManager hud;
 
+    private void UpdateHUD_Age(int newAge)
+    {
+        if (hud != null)
+            hud.UpdateAge(newAge);
+    }
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -17,12 +23,14 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
+
 
         if (player == null)
         {
             player = FindObjectOfType<PlayerController>();
             if (player == null) Debug.LogError("GameManager: PlayerController not found in scene.");
+            player.OnAgeChanged += UpdateHUD_Age;
         }
         if (hud == null)
         {

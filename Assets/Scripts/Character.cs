@@ -40,7 +40,7 @@ public abstract class Character : MonoBehaviour
     {
         currentAgeRate = defaultAgeRate;
         ApplyAgeStats();
-        currentHealth = maxHealth;
+
     }
 
     protected virtual void Update()
@@ -86,6 +86,9 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    public delegate void AgeChangedDelegate(int newAge);
+    public event AgeChangedDelegate OnAgeChanged;
+
     protected void AddOneYear()
     {
         if (age >= 90)
@@ -94,8 +97,8 @@ public abstract class Character : MonoBehaviour
         int oldAge = age;
         age = Mathf.Clamp(age + 1, 20, 90);
 
-        float oldMax = maxHealth;
-        float normalizedHealth = currentHealth / oldMax;
+       float oldMax = maxHealth;
+       float normalizedHealth = currentHealth / oldMax;
 
         ApplyAgeStats();
 
@@ -104,7 +107,9 @@ public abstract class Character : MonoBehaviour
 
         if (age != oldAge && age >= 90)
         {
-            Die();
+            OnAgeChanged?.Invoke(age);
+            if (age >= 90)
+                Die();
         }
     }
     protected void ApplyAgeStats()
@@ -134,7 +139,7 @@ public abstract class Character : MonoBehaviour
 
     public virtual void TakeDamage(float amount)
     {
-        currentHealth -= amount;
+       currentHealth -= amount;
         if (currentHealth <= 0)
             Die();
     }
