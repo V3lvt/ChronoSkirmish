@@ -7,10 +7,23 @@ public class PauseMenu : MonoBehaviour
     public string mainMenuSceneName = "Main Menu";
 
     private bool isPaused = false;
+    public bool canPause = true;
+
+    private static PauseMenu instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && canPause)
         {
             Debug.Log("Escape pressed");
             if (isPaused)
@@ -25,7 +38,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -35,7 +47,6 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0.000001f;
         isPaused = true;
-
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -53,17 +64,4 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Quit Game");
         Application.Quit();
     }
-
-    private static PauseMenu instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-    }
-
 }

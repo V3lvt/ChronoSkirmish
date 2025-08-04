@@ -144,9 +144,26 @@ public abstract class Character : MonoBehaviour
             Die();
     }
 
+    public GameObject deathScreenUI;
+
     protected virtual void Die()
     {
-        Destroy(gameObject);
+        if (deathScreenUI != null)
+            deathScreenUI.SetActive(true);
+
+        Time.timeScale = 0f;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        var mesh = GetComponent<MeshRenderer>();
+        if (mesh != null) mesh.enabled = false;
+
+        var pauseMenu = FindObjectOfType<PauseMenu>();
+        if (pauseMenu != null)
+            pauseMenu.canPause = false;
+
+        //Destroy(gameObject);
     }
     private float passiveAgeTimer = 0f;
 }
