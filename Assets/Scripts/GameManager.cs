@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     public PlayerController player;
     public HUDManager hud;
+    
+    [HideInInspector] public float elapsedTime = 0f;
+    private bool gameEnded = false;
 
     private void UpdateHUD_Age(int newAge)
     {
@@ -41,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (!gameEnded) elapsedTime += Time.deltaTime;
         if (player != null && hud != null)
         {
             hud.UpdateHealth(player.currentHealth, player.maxHealth);
@@ -48,4 +52,9 @@ public class GameManager : MonoBehaviour
             hud.UpdateDamage(player.dpsMultiplier);
         }
     }
+    public void EndGame()
+    {
+        gameEnded = true;
+    }
+
 }
