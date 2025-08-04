@@ -51,6 +51,10 @@ public abstract class Character : MonoBehaviour
 
     protected void HandleAging()
     {
+
+        if (GameManager.Instance != null && GameManager.Instance.isAgePaused)
+            return;
+
         ageAccumulator += currentAgeRate * Time.deltaTime;
         if (Mathf.Abs(ageAccumulator) >= 1f)
         {
@@ -78,6 +82,9 @@ public abstract class Character : MonoBehaviour
 
     protected void HandlePassiveAging()
     {
+        if (GameManager.Instance != null && GameManager.Instance.isAgePaused)
+            return;
+
         passiveAgeTimer += Time.deltaTime;
         if (passiveAgeTimer >= 2f)
         {

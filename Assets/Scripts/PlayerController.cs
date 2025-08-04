@@ -6,7 +6,7 @@ public class PlayerController : Character
     [HideInInspector] public WeaponPickup currentWeapon;
     private CharacterController controller;
     private Vector3 velocity;
-    private bool isGrounded;
+    public bool isGrounded;
 
     [Header("Gravity Settings")]
     public float gravity = -15f;

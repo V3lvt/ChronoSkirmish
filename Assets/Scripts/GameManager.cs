@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float elapsedTime = 0f;
     private bool gameEnded = false;
 
+    public bool isAgePaused = false;
+
     private void UpdateHUD_Age(int newAge)
     {
         if (hud != null)
